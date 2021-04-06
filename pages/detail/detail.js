@@ -7,6 +7,7 @@ Page({
   data: {
     exercise_video_src: "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4",
     if_record: 0,
+    record_end: 0,
     ctx: null, //ctx, 即CameraContext, 与页面内唯一的 camera 组件绑定，操作对应的 camera 组件
     },
 
@@ -64,12 +65,17 @@ Page({
         console.log("StartRecord fail",res)
       },
       timeoutCallback: (res) =>{  //超时
-        wx.setStorageSync('videoSrc', res.tempVideoPath)
-        console.log('StartRecord timeout, tempVideoPath =', res.tempVideoPath);
-        that.UploadRecord()
-        wx.navigateTo({ //实现页面的跳转
-          url: "/pages/score/score",
-        })
+        if(!that.data.record_end){
+          that.setData({
+            record_end: 1
+          })
+          wx.setStorageSync('videoSrc', res.tempVideoPath)
+          console.log('StartRecord timeout, tempVideoPath =', res.tempVideoPath);
+          that.UploadRecord()
+          wx.navigateTo({ //实现页面的跳转
+            url: "/pages/score/score",
+          })
+        }   
       }
     })
   },
@@ -77,6 +83,7 @@ Page({
   ExitRecord:function(){
     this.setData({
       if_record: 0,
+      record_end: 0,
     })
     this.ctx.stopRecord()
     console.log("ExitRecord")
@@ -84,30 +91,35 @@ Page({
   //结束录制并打分
   EndRecord: function(){
     var that = this
-    that.ctx.stopRecord({ 
-      fail:(res)=>{
-        console.log('EndRecord fail',res)
-        wx.showModal({
-          title: '提示',
-          content: '录制视频出错了o(╥﹏╥)o',
-          showCancel: false,//是否显示取消按钮
-          confirmText:"确定",//默认是“确定”
-        })
-        this.setData({
-          if_record: 0,
-        })
-        this.ctx.stopRecord()
-      },
-      success: (res) => {
-        wx.setStorageSync('videoSrc', res.tempVideoPath)
-        console.log('EndRecord success, tempVideoPath =', res.tempVideoPath)
-        that.UploadRecord()
-        wx.navigateTo({ //实现页面的跳转
-          url: "/pages/score/score",
-        })
-      },
-      complete:(res)=>{},
-    })
+    if(!that.data.record_end){
+      that.setData({
+        record_end: 1
+      })
+      that.ctx.stopRecord({ 
+        fail:(res)=>{
+          console.log('EndRecord fail',res)
+          wx.showModal({
+            title: '提示',
+            content: '录制视频出错了o(╥﹏╥)o',
+            showCancel: false,//是否显示取消按钮
+            confirmText:"确定",//默认是“确定”
+          })
+          this.setData({
+            if_record: 0,
+          })
+          this.ctx.stopRecord()
+        },
+        success: (res) => {
+          wx.setStorageSync('videoSrc', res.tempVideoPath)
+          console.log('EndRecord success, tempVideoPath =', res.tempVideoPath)
+          that.UploadRecord()
+          wx.navigateTo({ //实现页面的跳转
+            url: "/pages/score/score",
+          })
+        },
+        complete:(res)=>{},
+      })
+    }
   },
   //上传录像
   UploadRecord: function(){
@@ -155,7 +167,8 @@ Page({
   // * 生命周期函数--监听页面隐藏
   onHide: function () {
     this.setData({
-      if_record: 0
+      if_record: 0,
+      record_end: 0,
     });
   },
 
