@@ -1,0 +1,127 @@
+/* pages/userlog/userlog.wxss */
+page{
+  background-color: #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.log_container{
+  position: relative;
+  width: 750rpx;
+  height: 471rpx;
+  background-color: #313131;
+}
+.title{
+  position: absolute;
+  top: 50.7rpx;
+  left: 45.3rpx;
+  font-size: 36.2rpx;
+  color: #e7e7e7;
+}
+.share{
+  position: absolute;
+  top: 50.7rpx;
+  right: 58rpx;
+  width: 43.5rpx;
+}
+.share image{
+  width: 100%;
+}
+.share button{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.01;
+}
+.button_hover{
+  opacity: 0.9; /* 透明度变化 */
+  transform: scale(0.99,0.99);/* 缩放 */
+}
+.log_num{
+  position: absolute;
+  top: 103.3rpx;
+  left: 45.3rpx;
+  font-size: 90.6rpx;
+  font-weight: 540;
+  color: #ffd200;
+}
+.subtitle{
+  position: absolute;
+  top: 173.9rpx;
+  left: 166.7rpx;
+  font-size: 18.1rpx;
+  color: #e7e7e7;
+}
+
+.time_title{
+  position: absolute;
+  top: 288rpx;
+  left: 48.9rpx;
+  font-size: 21.7rpx;
+  color: #b4b4b4;
+}
+.day_title{
+  position: absolute;
+  top: 288rpx;
+  left: 342.4rpx;
+  font-size: 21.7rpx;
+  color: #b4b4b4;
+}
+.during_title{
+  position: absolute;
+  top: 288rpx;
+  left: 592.4rpx;
+  font-size: 21.7rpx;
+  color: #b4b4b4;
+}
+
+.time{
+  position: absolute;
+  top: 320.6rpx;
+  left: 48.9rpx;
+  font-size: 43.5rpx;
+  color: #ffd200;
+}
+.day{
+  position: absolute;
+  top: 320.6rpx;
+  left: 342.4rpx;
+  font-size: 43.5rpx;
+  color: #ffd200;
+}
+.during{
+  position: absolute;
+  top: 320.6rpx;
+  left: 592.4rpx;
+  font-size: 43.5rpx;
+  color: #ffd200;
+}
+
+.chart_container{
+  position: relative;
+  top: -32.6rpx;
+  width: 655.8rpx;
+  height: 318.8rpx;
+  background-color: #F2F2F2;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 36.2rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.date_title{
+  margin-top: 12.7rpx;
+  font-size: 23.6rpx;
+  color: #9a9a9a;
+}
+.canvas{
+  position: absolute;
+  top: 30rpx;
+  left: -15rpx;
+  width: 100%;
+}
+
+.button_hover{
+  transform: scale(0.9,0.9);/* 缩放 */
+}

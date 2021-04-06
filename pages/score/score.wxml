@@ -1,0 +1,21 @@
+<!--pages/score/score.wxml-->
+<view class="user_video">
+  <video src="{{userVideoSrc}}" object-fit="contain" autoplay="{{false}}"></video>
+</view>
+
+<view class="score_container">
+  <view class="share" hover-class="button_hover">
+    <image  src="/icons/share.png" mode="widthFix"></image>
+    <button size="mini" open-type="share">*</button>
+  </view>
+  <text class="title">您的得分</text>
+  <text class="score">{{score}}</text>
+</view>
+<view class="button_container">
+  <view class="again_button" hover-class="button_hover" bindtap="DoAgain">
+    <text class="button_text">再来一次</text>
+  </view>
+  <view class="log_button" hover-class="button_hover" bindtap="LookUserRank">
+    <text class="button_text">查看排行</text>
+  </view>
+</view>

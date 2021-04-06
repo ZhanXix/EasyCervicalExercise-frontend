@@ -1,0 +1,14 @@
+<!--pages/collect/collect.wxml-->
+<view class="exercise_page">
+  <view class="exercise_item" wx:for="{{exerciseData}}"  wx:key="id" >
+    <view class="exercise_button" bindtap="gotoDetail" data-operation="{{item.exerciseId}}" hover-class="button-hover">
+      <image class="background_image" src="{{item.image}}" mode="widthFix"></image>
+    </view>
+    <view class="exercise_name">
+      <text>{{item.exerciseName}}</text>
+    </view>
+    <view class="exercise_time">
+      <text>{{item.time}}秒 ·  {{item.usernum}}位用户已练过</text>
+    </view>
+  </view>
+</view> 

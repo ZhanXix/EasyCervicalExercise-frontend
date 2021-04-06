@@ -1,0 +1,87 @@
+<!--pages/index/index.wxml-->
+<view class="div_line"></view> <!-- 分割线 -->
+<!-- 用户信息 -->
+<view wx:if="{{!userInfo.hasUserInfo}}" class="userinfo_container" hover-class="all_hover">
+  <view class="userinfo_avatar">
+    <image src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
+  </view>
+  <text class="userinfo_nickname">{{userInfo.nickName}}</text>
+  <view class="edit">
+    <image src="/icons/edit.png"  mode="widthFix"></image>
+  </view>
+  <button  wx:if="{{!canIUseGetUserProfile}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:100%">  </button>
+  <button  wx:else bindtap="getUserProfile" style="width:100%">  </button>
+</view>
+<view wx:else class="userinfo_container">
+  <view class="userinfo_avatar">
+    <image src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
+  </view>
+  <view class="gender">
+    <image wx:if="{{userInfo.gender==2}}" src="/icons/woman.png" mode="widthFix"></image>
+    <image wx:if="{{userInfo.gender==1}}" src="/icons/man.png" mode="widthFix"></image>
+  </view>
+  <text class="userinfo_nickname">{{userInfo.nickName}}</text>
+  <view class="edit"  hover-class="all_hover">
+    <image src="/icons/edit.png"  mode="widthFix"></image>
+    <button  wx:if="{{!canIUseGetUserProfile}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:100%">  </button>
+    <button  wx:else bindtap="getUserProfile" style="width:100%">  </button>
+  </view>
+</view>
+
+<!-- 打卡记录 -->
+<view class="userlog" hover-class="all_hover">
+  <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+  <text class="title">打卡记录</text>
+  <text class="subtitle">总次数</text>
+  <text class="num">{{logNum}}</text>
+  <navigator class="userinfo_button" url="/pages/userlog/userlog"></navigator>
+</view>
+<!-- 排行榜 -->
+<view class="userrank" hover-class="all_hover">
+  <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+  <text class="title">排行榜</text>
+  <text class="subtitle">你的综合排名是</text>
+  <text class="num">{{userRank}}</text>
+  <navigator  class="userinfo_button" url="/pages/rank/rank" bindtap="setExerciseId"></navigator>
+</view>
+
+<view class="user_item_container">
+  <!-- 我的收藏 -->
+  <view class="user_item" hover-class="all_hover">
+    <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+    <navigator url="/pages/collect/collect" >
+      <view class="about_button"></view>
+      <view class="user_text">我的收藏</view>
+    </navigator>
+  </view>
+  <!-- 联系客服 -->
+  <view class="user_item" hover-class="all_hover">
+    <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+    <view class="user_text">联系客服</view>
+    <button open-type="contact" style="width:100%"></button>
+  </view>
+  <!-- 意见反馈 -->
+  <view class="user_item" hover-class="all_hover">
+    <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+    <view class="user_text">意见反馈</view>
+    <button open-type="feedback" style="width:100%"></button>
+  </view>  
+  <!-- 关于我们 -->
+  <view class="user_item" hover-class="all_hover">
+    <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+    <navigator url="/pages/about/about" >
+      <view class="about_button"></view>
+      <view class="user_text">关于我们</view>
+    </navigator>
+  </view>
+
+  <!-- 把应用推荐给其他人 -->
+  <view class="user_item" hover-class="all_hover">
+    <image class="bookmark" src="/icons/bookmark.png" mode="widthFix"></image>
+    <view class="user_text">把应用推荐给其他人</view>
+    <button open-type="share" data-info='{{userId}}' style="width:100%"></button>
+  </view>
+</view>
+
+
+  

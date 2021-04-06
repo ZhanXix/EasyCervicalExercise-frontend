@@ -1,0 +1,46 @@
+/* pages/exercise/exercise.wxss */
+.exercise_page {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 9rpx;
+}
+.exercise_page .exercise_item{
+  position: relative;
+  width: 721rpx;
+  margin-top: 11rpx;
+}
+.exercise_page .exercise_item .background_image{
+  width: 100%;
+  border-radius: 9rpx;  
+  z-index: -1; /*让图片置于最底层*/
+  /* box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(0, 0, 0, 0.4); */
+}
+.exercise_page .exercise_item .exercise_name{
+  position: absolute;
+  left: 63.4rpx;
+  bottom: 63.4rpx;
+  font-size: 43.5rpx;
+  color: #FFFFFF
+}
+.exercise_page .exercise_item .exercise_time{
+  position: absolute;
+  left: 63.4rpx;
+  bottom: 30.8rpx;
+  font-size: 21rpx;
+  color: #FFFFFF
+}
+.exercise_page .exercise_item .exercise_collect{
+  position: absolute;
+  right: 72.5rpx;
+  bottom: 30.8rpx;
+}
+.exercise_page .exercise_item .exercise_collect image{
+  width: 44rpx;
+  height: 44rpx;
+}
+.button-hover{
+  opacity: 0.9; /* 透明度变化 */
+  transform: scale(0.99,0.99);/* 缩放 */
+}

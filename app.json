@@ -1,0 +1,42 @@
+{
+  "pages":[
+    "pages/exercise/exercise",
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/score/score",
+    "pages/userlog/userlog",
+    "pages/rank/rank",
+    "pages/collect/collect",
+    "pages/about/about",
+    "pages/search/search"  
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "轻松颈椎操",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#FFD200",
+    "backgroundColor": "#F5F5F5",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/exercise/exercise",
+        "text": "锻炼室",
+        "iconPath": "icons/exercise.png",
+        "selectedIconPath": "icons/exercise_fill.png"
+      },
+      { 
+        "pagePath": "pages/index/index",
+        "text": "我的",
+        "iconPath": "icons/index.png",
+        "selectedIconPath": "icons/index_fill.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

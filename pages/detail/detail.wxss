@@ -1,0 +1,92 @@
+/* pages/detail/detail.wxss */
+page{
+  background-color: #E4E4E4;
+}
+.exercise_video{
+  width: 100vw;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+.exercise_video video{
+  width: 100vw;
+}
+.cover_video{
+  position: absolute;
+  top: 30vh;
+  left: 0;
+  opacity: 0.01;
+  width: 100vw;
+  height: 10vh;
+}
+
+.main_point_container{
+  position: absolute;
+  top: 39.5vh;
+  left: 10vw;
+}
+.main_point_container .main_point{
+  background-color: #313131;
+  height: 60.5vh;
+  width: 80vw;
+  border-radius: 36rpx; 
+  border-width: 1rpx;
+  border-color: #FFFFFF; 
+  position: relative;
+  box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main_point_container .main_point .title{
+  position: absolute;
+  top: 4vh;
+  color:#E7E7E7;
+  font-size: 33rpx;
+  font-family: PingFangSC-regular;
+}
+.main_point_container .main_point .information{
+  position: absolute;
+  top:10.4vh;
+  left:5.8vw;
+  width: 68.2vw;
+  color:#E7E7E7;
+  font-size: 25.4rpx;
+  font-family: PingFangSC-regular;
+}
+.main_point_container .main_point .record_button{
+  position: absolute;
+  top: 46.8vh;
+  left:18vw;
+  width:44vw;
+  height:6.3vh;
+  background-color:#FFD200;
+  border-radius: 36rpx; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(0, 0, 0, 0.4);
+}
+.main_point_container .main_point .record_button .text{
+  color: #313131;
+  font-size: 29rpx;
+}
+.main_point_container .button_hover{
+  opacity: 0.9; /* 透明度变化 */
+  transform: scale(0.9,0.9);/* 缩放 */
+}
+
+.main_point_container .main_point .camera_container{
+  position: absolute;
+  top:11vh;
+  /* left:5.8vw; */
+  width: 100%;
+  height: 32vh;
+  background-color: #000000;
+  border-radius: 36rpx; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

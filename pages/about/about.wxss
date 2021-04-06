@@ -1,0 +1,6 @@
+/* pages/about/about.wxss */
+view{
+  position: relative;
+  top: 10rpx;
+  font-size: 35rpx;
+}

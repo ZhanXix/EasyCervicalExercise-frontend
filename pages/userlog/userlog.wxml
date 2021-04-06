@@ -1,0 +1,23 @@
+<!--pages/userlog/userlog.wxml-->
+<view class="log_container">
+  <text class="title">总运动</text>
+  <view class="share" hover-class="button_hover">
+    <image  src="/icons/share.png" mode="widthFix"></image>
+    <button size="mini" open-type="share">*</button>
+  </view>
+  <text class="log_num">{{total_times}}</text>
+  <text class="subtitle">次</text>
+  <text class="time_title">总时间(分钟)</text>
+  <text class="time">{{total_duration}}</text>
+  <text class="day_title">累计(天)</text>
+  <text class="day">{{total_day}}</text>
+  <text class="during_title">连续(天)</text>
+  <text class="during">{{continuous_day}}</text>
+</view>
+
+<view class="chart_container">
+  <text class="date_title">{{from_day}} - {{to_day}}</text>
+  <view class="charts"> 
+    <canvas canvas-id="columnCanvas" class="canvas" disable-scroll='true'></canvas>
+  </view>
+</view>

@@ -1,0 +1,4 @@
+<!--pages/search/search.wxml-->
+<view class="search_box">
+  <input class="search_input" focus placeholder="轻松搜索 你想做的颈椎操项目" confirm-type="search">  </input>
+</view>

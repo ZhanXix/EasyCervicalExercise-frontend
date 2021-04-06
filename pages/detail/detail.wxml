@@ -1,0 +1,24 @@
+<!--pages/detail/detail.wxml-->
+<view class="exercise_video" wx:if="{{if_record}}"> <!--录制中-->
+  <video src="{{exercise_video_src}}" object-fit="contain" autoplay="{{true}}" show-play-btn="{{false}}" show-fullscreen-btn="{{false}}" enable-progress-gesture="{{false}}" bindended="EndRecord"></video>
+</view>
+<view class="exercise_video" wx:else> <!--非录制中-->
+  <video src="{{exercise_video_src}}" object-fit="contain" autoplay="{{false}}"></video>
+</view>
+<cover-view class="cover_video" wx:if="{{if_record}}">  <!--透明遮罩，防止用户触碰到进度条-->
+</cover-view>
+
+<view class="main_point_container">
+  <view class="main_point">
+    <text class="title">对照着做效果更好哦！</text>
+    <view class="camera_container">
+      <camera style="width: 100%; hight:100%;" device-position="front" binderror="NotAllowCamera"></camera>
+    </view>
+    <view  wx:if="{{if_record}}" class="record_button" hover-class="button_hover" bindtap="ExitRecord">
+      <text >退出录制</text>
+    </view>
+    <view wx:else class="record_button" hover-class="button_hover" bindtap="EnterRecord">
+      <text>开始评分</text>
+    </view>
+  </view>
+</view>

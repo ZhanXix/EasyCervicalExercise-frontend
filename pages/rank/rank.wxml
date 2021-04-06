@@ -1,0 +1,49 @@
+<!--pages/rank/rank.wxml-->
+<view class="div_line"></view> <!-- 分割线 -->
+<view class="rank_head">
+  <image class="win_background" src="{{rank_list[0].avatar}}" mode="aspectFill"></image>
+  <text class="win_text">{{rank_list[0].user_name}}占领了封面</text>
+  <view class="share" hover-class="button_hover">
+    <image  src="/icons/share.png" mode="widthFix"></image>
+    <button size="mini" open-type="share">*</button>
+  </view>
+  <view class="user_container">
+    <view class="rank_info">
+      <view class="ranknum_container">
+        <text>{{myrank}}</text>
+      </view>
+      <view class="avatar_container">
+        <view class="image_container">
+          <image src="{{my.avatar}}" lazy-load mode="scaleToFill"></image>
+        </view>
+      </view>
+      <view class="name_container"> 
+        <text>{{my.user_name}}</text>
+      </view>
+      <view class="score_container">
+        <text class="my_score">{{my.score}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="rank_list">
+  <view class="user_container" wx:for="{{rank_list}}" wx:key="id">
+    <view class="rank_info">
+      <view class="ranknum_container">
+        <text>{{index + 1}}</text>
+      </view>
+      <view class="avatar_container">
+        <view class="image_container">
+          <image src="{{item.avatar}}" lazy-load mode="scaleToFill"></image>
+        </view>
+      </view>
+      <view class="name_container"> 
+        <text>{{item.user_name}}</text>
+      </view>
+      <view class="score_container">
+        <text class="rank_score">{{item.score}}</text>
+      </view>
+    </view>
+  </view>
+</view>

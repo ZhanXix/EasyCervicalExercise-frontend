@@ -1,0 +1,21 @@
+<!--pages/exercise/exercise.wxml-->
+<searchBox></searchBox>
+<view class="exercise_page">
+  <view class="exercise_item" wx:for="{{exerciseData}}"  wx:key="id" >
+    <view class="exercise_button" bindtap="gotoDetail" data-operation="{{item.exerciseId}}" hover-class="button-hover">
+      <image class="background_image" src="{{item.image}}" mode="widthFix"></image>
+    </view>
+    <view class="exercise_name">
+      <text>{{item.exerciseName}}</text>
+    </view>
+    <view class="exercise_time">
+      <text>{{item.time}}秒 ·  {{item.usernum}}位用户已练过</text>
+    </view>
+    <view class="exercise_collect" wx:if="{{item.isCollect}}" >
+      <image  src="/icons/collect_fill.png" catchtap="reduceFavorites" data-exerciseid="{{item.exerciseId}}"  data-keyid="{{index}}" mode="widthFix"></image>
+    </view>
+    <view class="exercise_collect" wx:else>
+      <image src="/icons/collect.png" catchtap="addFavorites" data-exerciseid="{{item.exerciseId}}" data-keyid="{{index}}" mode="widthFix"></image>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,18 @@
+/* pages/search/search.wxss */
+.search_box {
+  height: 60rpx;
+  padding: 10rpx;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search_box .search_input {
+  height: 98%;
+  width: 721rpx;
+  padding: 0 20rpx;
+  background-color: #E7E7E7;
+  border-radius:9rpx;
+  color: #666;
+  font-size: 26rpx;
+}
