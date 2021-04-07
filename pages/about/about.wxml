@@ -1,7 +1,15 @@
 <!--pages/about/about.wxml-->
-<view>轻松颈椎操 v2.0.0</view>
-<view>一起来做颈椎操吧! ^-^</view>
-<view> -- </view>
-<view>轻松颈椎操开发团队@SSPKU</view>
-<view>2021.4</view>
+<view class="title">
+  <text>轻松颈椎操 v2.0.0</text>
+</view>
+<view class="about">
+  <text>一起来做颈椎操吧! ^-^</text>
+  <text>---</text>
+  <text>v1.0.0：完成了所有基础功能</text>
+  <text>v2.0.0：重构项目，完成了所有功能</text>
+  <text>v2.0.1：修复了几个bug，改善界面效果</text>
+  <text>---</text>
+  <text>轻松颈椎操开发团队@SSPKU </text>
+  <text>2021.4</text>
+</view>
 

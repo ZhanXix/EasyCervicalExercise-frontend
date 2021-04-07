@@ -1,6 +1,23 @@
 /* pages/about/about.wxss */
-view{
-  position: relative;
-  top: 10rpx;
-  font-size: 35rpx;
+page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20rpx;
+  font-size: 36rpx;
+}
+.about{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+}
+text{
+  margin-top: 10rpx;
 }
