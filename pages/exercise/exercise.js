@@ -27,7 +27,8 @@ Page({
       "usernum": 49,
       "image": "/icons/test3.png"
       }
-    ]
+    ],
+    keyId: 0
   },
 
   //去运动详情页
@@ -41,51 +42,82 @@ Page({
 
   //添加收藏
   addFavorites (e) {
-    var that=this;
-    var exerciseId=e.target.dataset.exerciseid;
-    var keyId=e.target.dataset.keyid;
-    //call.request(url, postData,this.addFavoritesSuccess, this.fail);
-    this.addFavoritesSuccess(keyId);
+    var that  = this;
+    var exerciseId = e.target.dataset.exerciseid;
+    var keyId = e.target.dataset.keyid;
+    var userId = wx.getStorageSync("userId")
+    that.setData({
+      keyId: keyId
+    })
+    // GET add_user_favor
+    // 127.0.0.1:5000/add_favor?user_id=1&exerciseId=1
+    var url = "add_favor?user_id=" + userId + "&exerciseId=" + exerciseId
+    call.getData(url, that.addFavoritesSuccess, that.addFavoritesFail);
   },
   addFavoritesSuccess (res) {
     var that = this;
-    let arrCut = 'exerciseData[' + res + '].isCollect'  
-    that.setData({
-      [arrCut]:1
-    })
-    console.log("addFavoritesSuccess, keyId =", res)
+    let arrCut = 'exerciseData[' + that.data.keyId + '].isCollect'  
+    if (res=="200"){
+      that.setData({
+        [arrCut]:1
+      })
+      console.log("addFavoritesSuccess, keyId =", that.data.keyId)
+      wx.showToast({
+        title: "收藏成功",
+        icon: 'success',
+        duration: 1000
+      })
+    } else {
+      that.addFavoritesFail()
+    }
+  },
+  addFavoritesFail(){
+    console.log("addFavoritesFail, keyId =", this.data.keyId)
     wx.showToast({
-      title: "收藏成功",
-      icon: 'success',
-      duration: 1000
+      title: "服务出错了OAO", 
+      icon: 'error',
+      duration: 2000
     })
   },
 
   //取消收藏
   reduceFavorites (e) {
-    var that=this;
-    var exerciseId=e.target.dataset.exerciseid;
-    var keyId=e.target.dataset.keyid;
-    //call.request(url, postData,this.reduceFavoritesSuccess, this.fail);
-    that.reduceFavoritesSuccess(keyId);
+    var that  = this;
+    var exerciseId = e.target.dataset.exerciseid;
+    var keyId = e.target.dataset.keyid;
+    var userId = wx.getStorageSync("userId")
+    that.setData({
+      keyId: keyId
+    })
+    // GET delete_user_favor
+    // 127.0.0.1:5000/delete_favor?user_id=1&exerciseId=1
+    var url = "delete_favor?user_id=" + userId + "&exerciseId=" + exerciseId
+    call.getData(url, that.reduceFavoritesSuccess, that.reduceFavoritesFail);
   },
   reduceFavoritesSuccess(res){
     var that = this;
-    let arrCut = 'exerciseData[' + res + '].isCollect'  
-    that.setData({
-      [arrCut]:0
-    })
-    console.log("reduceFavoritesSuccess, keyId =", res)
-    wx.showToast({
-      title: "取消收藏成功",
-      icon: 'success',
-      duration: 1000
-    })
+    if (res=="200"){
+      let arrCut = 'exerciseData[' + that.data.keyId + '].isCollect'  
+      that.setData({
+        [arrCut]:0
+      })
+      console.log("reduceFavoritesSuccess, keyId =", that.data.keyId)
+      wx.showToast({
+        title: "取消收藏成功",
+        icon: 'success',
+        duration: 1000
+      })
+    } else {
+      that.reduceFavoritesFail()
+    }
   },
-
-  //request失败
-  fail: function () {
-    console.log("request失败");
+  reduceFavoritesFail(){
+    console.log("reduceFavoritesFail, keyId =", this.data.keyId)
+    wx.showToast({
+      title: "服务出错了OAO", 
+      icon: 'error',
+      duration: 2000
+    })
   },
 
   //分享

@@ -13,7 +13,7 @@ App({
     // },
     // exerciseId: 0,
     // videoSrc: null, //视频暂存
-    host: 'http://192.168.123.13:5000'    //服务器url
+    host: 'http://1.116.103.4:5000/'    //服务器url
   },
 
   onLaunch() {
@@ -24,7 +24,7 @@ App({
         if (res.code) {
           console.log('wx.login success, code =', res.code)
           //call.require("/login", res.code, that.loginSuccess, that.loginFail)
-          that.loginSuccess(1415926)
+          that.loginSuccess(3)
         } else {
           console.log('wx.login fail' + res.errMsg)
           wx.setStorageSync('userId', 0)
