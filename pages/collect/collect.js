@@ -1,28 +1,28 @@
 // pages/collect/collect.js
+var call = require("../../utils/request.js")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    exerciseData:[
-      {"exerciseId": 1,
-      "exerciseName": "训练项目1", 
-      "isCollect": 0,
-      "time": 30,
-      "usernum": 75,
-      "image": "/icons/test.png"
-      },
-      {"exerciseId": 3,
-      "exerciseName": "训练项目3", 
-      "isCollect": 0,
-      "time": 30,
-      "usernum": 49,
-      "image": "/icons/test3.png"
-      }
-    ]
+    exerciseData:[]
   },
-  
+
+  onLoad(){
+    // GET show_exercise_video_by_userId
+    // 127.0.0.1:5000/show_exercise_video?user_id=1
+    let userId = wx.getStorageSync('userId')
+    let url = "show_exercise_video?user_id=" + userId
+    call.getData(url, this.GetCollectSuccess, this.GetCollectFail)
+  },
+  GetCollectSuccess(res){
+
+  },
+  GetCollectFail(){
+
+  },  
+
   //去运动详情页
   gotoDetail(e) {
     wx.setStorageSync('exerciseId', e.currentTarget.dataset.operation)

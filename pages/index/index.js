@@ -44,6 +44,10 @@ Page({
       })
       wx.setStorageSync('userInfo', this.data.userInfo)
       console.log("getUserInfo and setStorageSync, userInfo =",this.data.userInfo)
+      //get Login
+      //127.0.0.1:5000/login?name=zrx&img=http://ewfrsgferged&user_id=retyhtujrtyhdrtghfjtyhrdg
+      var url = "login?name=" + that.data.userInfo.nickName + "&img=" + that.data.userInfo.avatarUrl + "&user_id=" + that.data.userId
+      call.getData(url, that.LoginSuccess, that.LoginFail)
       //call.request("/avatar",this.data.userInfo,this.uploadUserIndfoSuccess,this.fail)
       //call.request("/lognum",this.data.userInfo.code,getUserLogNumSuccess,this.fail)
     } else {
@@ -63,6 +67,10 @@ Page({
         })
         wx.setStorageSync('userInfo', this.data.userInfo)
         console.log("getUserProfile and setStorageSync, userInfo =",this.data.userInfo)
+        //get Login
+        //127.0.0.1:5000/login?name=zrx&img=http://ewfrsgferged&user_id=retyhtujrtyhdrtghfjtyhrdg
+        var url = "login?name=" + that.data.userInfo.nickName + "&img=" + that.data.userInfo.avatarUrl + "&user_id=" + that.data.userId
+        call.getData(url, that.LoginSuccess, that.LoginFail)
         //call.request("/avatar",this.data.userInfo,this.uploadUserIndfoSuccess,this.fail)
         //call.request("/lognum",this.data.userInfo.code,getUserLogNumSuccess,this.fail)
       },
@@ -70,6 +78,17 @@ Page({
         console.log("getUserProfile fail", res)
       }
     })  
+  },
+  LoginSuccess(res){
+    if(res.code == 200){
+      console.log("Login Success, userId =", res.data)
+      wx.setStorageSync('userId', res.data)
+    } else{
+      console.log("Login Server Error")
+    }
+  },
+  LoginFail(){
+    console.log("Login Fail")
   },
 
   setExerciseId(){

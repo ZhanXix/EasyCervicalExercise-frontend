@@ -9,7 +9,7 @@
       <text>{{item.exerciseName}}</text>
     </view>
     <view class="exercise_time">
-      <text>{{item.time}}秒 ·  {{item.usernum}}位用户已练过</text>
+      <text>{{item.duration}}秒 ·  {{item.usernum}}位用户已练过</text>
     </view>
     <view class="exercise_collect" wx:if="{{item.isCollect}}" >
       <image  src="/icons/collect_fill.png" catchtap="reduceFavorites" data-exerciseid="{{item.exerciseId}}"  data-keyid="{{index}}" mode="widthFix"></image>

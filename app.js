@@ -1,6 +1,4 @@
 // app.js
-var call = require("utils/util.js")
-
 App({
   globalData: {
     //放入本地缓存中的数据：
@@ -13,7 +11,8 @@ App({
     // },
     // exerciseId: 0,
     // videoSrc: null, //视频暂存
-    host: 'http://1.116.103.4:5000/'    //服务器url
+    // host: 'http://1.116.103.4:5000/'    //服务器url
+    host: 'http://192.168.43.74:5000/'
   },
 
   onLaunch() {
@@ -22,14 +21,14 @@ App({
     wx.login({
       success (res) {
         if (res.code) {
-          console.log('wx.login success, code =', res.code)
-          //call.require("/login", res.code, that.loginSuccess, that.loginFail)
-          that.loginSuccess(3)
+          var code = res.code
+          console.log('wx.login success, code =', code)
+          that.FirstLogin(code)
         } else {
           console.log('wx.login fail' + res.errMsg)
-          wx.setStorageSync('userId', 0)
+          wx.setStorageSync('userId', 1415926)
+          console.log("getStorageSync, userId =" ,wx.getStorageSync('userId'))
         }
-        console.log("setStorageSync, userId =" ,wx.getStorageSync('userId'))
       }
     })
     // 获取用户信息
@@ -71,7 +70,37 @@ App({
     console.log("setStorageSync, userInfo =",wx.getStorageSync('userInfo'))
   },
 
-  loginSuccess(e) {
-    wx.setStorageSync('userId', e)
-  },
+  FirstLogin(code){
+    var that = this
+    // 127.0.0.1:5000/first_login?code=zrx
+    var url = that.globalData.host + "first_login?code=" + code
+    wx.showLoading({
+      title: '服务器联络中...',
+      mask: true
+    })
+    wx.request({
+      url: url,
+      header: {
+        "content-type": "application/json;charset=UTF-8"
+       },
+      method: 'GET',
+      success: function (res) {
+        if(res.statusCode == 200){
+          console.log("FirstLogin Success")
+          wx.setStorageSync('userId', res.data.data.user_id)
+        } else{
+          console.log("FirstLogin Server Error")
+          wx.setStorageSync('userId', "error")
+        }
+      },
+      fail: function () {
+        console.log('FirstLogin Fail')
+        wx.setStorageSync('userId', "error")
+      },
+      complete: function (){  
+        // wx.hideLoading()
+        console.log("getStorageSync, userId =" ,wx.getStorageSync('userId'))
+      }
+    }) 
+  }
 })

@@ -1,4 +1,4 @@
-var app = getApp();
+const app = getApp()
 var host = app.globalData.host;
  
 /**
@@ -11,7 +11,7 @@ var host = app.globalData.host;
 function request(url, postData, doSuccess, doFail) {
   // 显示加载中效果
   wx.showLoading({
-    title: '加载中',
+    title: '服务器联络中...',
     mask: true
   })
 
@@ -38,20 +38,29 @@ function request(url, postData, doSuccess, doFail) {
 
 //GET请求，不需传参，直接URL调用，
 function getData(url, doSuccess, doFail) {
-    wx.request({
+  // 显示加载中效果
+  wx.showLoading({
+    title: '服务器联络中...',
+    mask: true
+  })
+
+  wx.request({
     url: host + url,
     header: {
-     "content-type": "application/json;charset=UTF-8"
+      "content-type": "application/json;charset=UTF-8"
     },
-   method: 'GET',
-   success: function (res) {
+    method: 'GET',
+    success: function (res) {
       doSuccess(res.data);
     },
     fail: function () {
-     doFail();
-   },
-   })
- }
+      doFail();
+    },
+    complete: function (){  //取消加载中效果
+      wx.hideLoading()
+    }
+  })
+}
  
 /**
 * module.exports用来导出代码

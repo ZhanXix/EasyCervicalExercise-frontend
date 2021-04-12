@@ -6,29 +6,74 @@ Page({
   //  * 页面的初始数据
   data: {
     exerciseData:[
-      {"exerciseId": 1,
-      "exerciseName": "训练项目1", 
-      "isCollect": 0,
-      "time": 30,
-      "usernum": 75,
-      "image": "/icons/test.png"
-      },
-      {"exerciseId": 2,
-      "exerciseName": "训练项目2", 
-      "isCollect": 0,
-      "time": 30,
-      "usernum": 23,
-      "image": "/icons/test2.png"
-      },
-      {"exerciseId": 3,
-      "exerciseName": "训练项目3", 
-      "isCollect": 0,
-      "time": 30,
-      "usernum": 49,
-      "image": "/icons/test3.png"
-      }
+      // {"duration": 30,
+      // "exerciseId": 1,
+      // "exerciseName": "训练项目1", 
+      // "image": "/icons/test.png",
+      // "isCollect": 0,
+      // "main_points": "olik",
+      // "title": "动作要点",
+      // "user_id": "1",
+      // "usernum": 99,
+      // "video": "erty"
+      // }
     ],
     keyId: 0
+  },
+
+  onLoad(){
+    var that = this
+    wx.showLoading({
+      title: '服务器联络中...',
+      mask: true
+    })
+    var userId = wx.getStorageSync('userId')
+    var a = setInterval(function () { 
+      //循环执行代码 
+      userId = wx.getStorageSync('userId')
+      console.log("wait to FirstLogin...")
+      if(userId == "error"){
+        clearInterval(a) 
+        wx.hideLoading()
+        wx.showLoading({
+          title: '服务器失踪中！',
+          mask: true
+        })
+      } else if (userId) { 
+        clearInterval(a) 
+        // GET show_exercise_video_by_userId
+        // 127.0.0.1:5000/show_exercise_video?user_id=1
+        var url = "show_exercise_video?user_id=" + userId
+        call.getData(url, that.GetExerciseDataSuccess, that.GetExerciseDataLoadFail)
+      } 
+    }, 1000)
+  },
+  GetExerciseDataSuccess(res){
+    if(res.code == 200){
+      var exerciseData = res.data
+      for (let i = 0; i < exerciseData.length; i++) {
+        exerciseData[i].image = app.globalData.host + res.data[i].image
+      }
+      console.log("GetExerciseDataSuccess,", exerciseData)
+      this.setData({
+        exerciseData: exerciseData
+      })
+    } else {
+      console.log("GetExerciseData Server Error")
+      wx.showToast({
+        title: "服务器失踪中！", 
+        icon: 'error',
+        duration: 5000
+      })
+    }
+  },
+  GetExerciseDataFail(){
+    console.log("GetExerciseData Fail")
+    wx.showToast({
+      title: "服务器失踪中！", 
+      icon: 'error',
+      duration: 5000
+    })
   },
 
   //去运动详情页
@@ -46,22 +91,22 @@ Page({
     var exerciseId = e.target.dataset.exerciseid;
     var keyId = e.target.dataset.keyid;
     var userId = wx.getStorageSync("userId")
+    let arrCut = 'exerciseData[' + keyId + '].isCollect'  
     that.setData({
+      [arrCut]:1,
       keyId: keyId
     })
     // GET add_user_favor
     // 127.0.0.1:5000/add_favor?user_id=1&exerciseId=1
     var url = "add_favor?user_id=" + userId + "&exerciseId=" + exerciseId
+    console.log("addFavorites", url)
     call.getData(url, that.addFavoritesSuccess, that.addFavoritesFail);
   },
   addFavoritesSuccess (res) {
     var that = this;
-    let arrCut = 'exerciseData[' + that.data.keyId + '].isCollect'  
-    if (res=="200"){
-      that.setData({
-        [arrCut]:1
-      })
+    if (res.code == 200){
       console.log("addFavoritesSuccess, keyId =", that.data.keyId)
+      wx.hideLoading()
       wx.showToast({
         title: "收藏成功",
         icon: 'success',
@@ -73,8 +118,13 @@ Page({
   },
   addFavoritesFail(){
     console.log("addFavoritesFail, keyId =", this.data.keyId)
+    let arrCut = 'exerciseData[' + this.data.keyId + '].isCollect'  
+    this.setData({
+      [arrCut]:0,
+    })
+    wx.hideLoading()
     wx.showToast({
-      title: "服务出错了OAO", 
+      title: "收藏失败了OAO", 
       icon: 'error',
       duration: 2000
     })
@@ -86,35 +136,40 @@ Page({
     var exerciseId = e.target.dataset.exerciseid;
     var keyId = e.target.dataset.keyid;
     var userId = wx.getStorageSync("userId")
+    let arrCut = 'exerciseData[' + keyId + '].isCollect'  
     that.setData({
+      [arrCut]:0,
       keyId: keyId
     })
     // GET delete_user_favor
     // 127.0.0.1:5000/delete_favor?user_id=1&exerciseId=1
     var url = "delete_favor?user_id=" + userId + "&exerciseId=" + exerciseId
+    console.log("reduceFavorites", url)
     call.getData(url, that.reduceFavoritesSuccess, that.reduceFavoritesFail);
   },
   reduceFavoritesSuccess(res){
     var that = this;
-    if (res=="200"){
-      let arrCut = 'exerciseData[' + that.data.keyId + '].isCollect'  
-      that.setData({
-        [arrCut]:0
-      })
-      console.log("reduceFavoritesSuccess, keyId =", that.data.keyId)
+    if (res.code == 200){
+      console.log("addFavoritesSuccess, keyId =", that.data.keyId)
+      wx.hideLoading()
       wx.showToast({
         title: "取消收藏成功",
         icon: 'success',
         duration: 1000
       })
     } else {
-      that.reduceFavoritesFail()
+      that.addFavoritesFail()
     }
   },
   reduceFavoritesFail(){
-    console.log("reduceFavoritesFail, keyId =", this.data.keyId)
+    console.log("addFavoritesFail, keyId =", this.data.keyId)
+    let arrCut = 'exerciseData[' + this.data.keyId + '].isCollect'  
+    this.setData({
+      [arrCut]:1,
+    })
+    wx.hideLoading()
     wx.showToast({
-      title: "服务出错了OAO", 
+      title: "取消收藏失败", 
       icon: 'error',
       duration: 2000
     })
