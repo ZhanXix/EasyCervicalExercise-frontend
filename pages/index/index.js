@@ -13,8 +13,8 @@ Page({
       hasUserInfo: false,
     },
     canIUseGetUserProfile: false,
-    logNum: "0",
-    userRank: "9999+",
+    logNum: 0,
+    userRank: "9999+"
   },
 
   onLoad() {
@@ -24,13 +24,27 @@ Page({
     })
     console.log("index page, getStorageSync, userInfo =",this.data.userInfo)
     //获取用户当前打卡总记录和排行榜排名
-    //call.require(url,this.data.userId,doSuccess,doFail)
+    // GET show_mine
+    // 127.0.0.1:5000/show_mine?user_id=1
+    var url = "show_mine?user_id=" + this.data.userId
+    call.getData(url, this.ShowMineSuccess, this.ShowMineFail)
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
       })
     }
   },
+  ShowMineSuccess(res){
+    var that = this
+    if(res.rank){
+      console.log("ShowMineSuccess, rank =", res.rank, ",total_times =" , res.total_times)
+      that.setData({
+        logNum: res.total_times,
+        userRank: res.userRank
+      })
+    }
+  },
+  ShowMineFail(res){},
 
   getUserInfo(e) {
     var that=this;

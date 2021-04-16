@@ -11,8 +11,7 @@ App({
     // },
     // exerciseId: 0,
     // videoSrc: null, //视频暂存
-    // host: 'http://1.116.103.4:5000/'    //服务器url
-    host: 'http://192.168.43.74:5000/'
+    host: 'http://1.116.103.4:5000/'
   },
 
   onLaunch() {

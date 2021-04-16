@@ -28,23 +28,25 @@ Page({
       mask: true
     })
     var userId = wx.getStorageSync('userId')
-    var a = setInterval(function () { 
+    var a = setInterval( function () { 
       //循环执行代码 
       userId = wx.getStorageSync('userId')
       console.log("wait to FirstLogin...")
       if(userId == "error"){
+        wx.setStorageSync('userId', null)
         clearInterval(a) 
         wx.hideLoading()
         wx.showLoading({
           title: '服务器失踪中！',
           mask: true
         })
-      } else if (userId) { 
+      } else 
+      if (userId) { 
         clearInterval(a) 
         // GET show_exercise_video_by_userId
         // 127.0.0.1:5000/show_exercise_video?user_id=1
         var url = "show_exercise_video?user_id=" + userId
-        call.getData(url, that.GetExerciseDataSuccess, that.GetExerciseDataLoadFail)
+        call.getData(url, that.GetExerciseDataSuccess, that.GetExerciseDataFail)
       } 
     }, 1000)
   },
@@ -60,19 +62,19 @@ Page({
       })
     } else {
       console.log("GetExerciseData Server Error")
-      wx.showToast({
-        title: "服务器失踪中！", 
-        icon: 'error',
-        duration: 5000
+      wx.hideLoading()
+      wx.showLoading({
+        title: '服务器失踪中！',
+        mask: true
       })
     }
   },
   GetExerciseDataFail(){
     console.log("GetExerciseData Fail")
-    wx.showToast({
-      title: "服务器失踪中！", 
-      icon: 'error',
-      duration: 5000
+    wx.hideLoading()
+    wx.showLoading({
+      title: '服务器失踪中！',
+      mask: true
     })
   },
 
@@ -106,7 +108,6 @@ Page({
     var that = this;
     if (res.code == 200){
       console.log("addFavoritesSuccess, keyId =", that.data.keyId)
-      wx.hideLoading()
       wx.showToast({
         title: "收藏成功",
         icon: 'success',
@@ -122,7 +123,6 @@ Page({
     this.setData({
       [arrCut]:0,
     })
-    wx.hideLoading()
     wx.showToast({
       title: "收藏失败了OAO", 
       icon: 'error',
@@ -151,7 +151,6 @@ Page({
     var that = this;
     if (res.code == 200){
       console.log("addFavoritesSuccess, keyId =", that.data.keyId)
-      wx.hideLoading()
       wx.showToast({
         title: "取消收藏成功",
         icon: 'success',
@@ -167,7 +166,6 @@ Page({
     this.setData({
       [arrCut]:1,
     })
-    wx.hideLoading()
     wx.showToast({
       title: "取消收藏失败", 
       icon: 'error',

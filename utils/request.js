@@ -25,14 +25,12 @@ function request(url, postData, doSuccess, doFail) {
     method: 'POST',
     success: function (res) {
       //参数值为res.data,直接将返回的数据传入
+      wx.hideLoading()
       doSuccess(res.data);
     },
     fail: function () {
       doFail();
     },
-    complete: function (){  //取消加载中效果
-      wx.hideLoading()
-    }
   })
 }
 
@@ -51,14 +49,12 @@ function getData(url, doSuccess, doFail) {
     },
     method: 'GET',
     success: function (res) {
+      wx.hideLoading()
       doSuccess(res.data);
     },
     fail: function () {
       doFail();
     },
-    complete: function (){  //取消加载中效果
-      wx.hideLoading()
-    }
   })
 }
  

@@ -4,33 +4,35 @@ var call = require("../../utils/request.js")
 Page({
   // * 页面的初始数据
   data: {
-    userVideoSrc: "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4",
-    score: 80,
+    userVideoSrc: '',
+    //"https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4",
+    score: '',
   },
 
   //* 生命周期函数--监听页面加载
   onLoad: function (options) {
+    var that = this
+    wx.showLoading({
+      title: '评分中...',
+    })
     var userId = wx.getStorageSync('userId')
     var userVideoSrc = wx.getStorageSync('videoSrc')
+    var score = wx.getStorageSync('score')
     console.log("getStorageSync, userId =", userId, "userVideoSrc =", userVideoSrc)
-    if (userVideoSrc){
-      this.setData({
-        userVideoSrc: userVideoSrc
-      })
-    }
-    //call.require('/getScore', userId, this.getScoreSuccess, this.getScoreFail)
-  },
-  getScoreSuccess(res){
-    this.setData({
-      score: res.score
-    })
-  },
-  getScoreFail(res){
-  },
-
-  shareUservideo: function() {
-    //分享
-    console.log("用户点击分享")
+    var a = setInterval( function () { 
+      //循环执行代码 
+      score = wx.getStorageSync('score')
+      console.log("wait to get score...")
+      if (score){
+        clearInterval(a) 
+        wx.hideLoading()
+        that.setData({
+          userVideoSrc: userVideoSrc,
+          score: score
+        })
+        console.log("get score =", score)
+      }
+    }, 1000)
   },
 
   DoAgain: function() {

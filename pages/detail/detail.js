@@ -5,32 +5,51 @@ const app = getApp()
 Page({
   // * 页面的初始数据
   data: {
-    exercise_video_src: "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4",
+    exercise_video_src: ''
+    //"https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4"
+    ,
     if_record: 0,
+    not_hide: 1,
     record_end: 0,
     ctx: null, //ctx, 即CameraContext, 与页面内唯一的 camera 组件绑定，操作对应的 camera 组件
     },
 
   // * 生命周期函数--监听页面加载
   onLoad: function (options) {
-    var exerciseId = wx.getStorageSync('exerciseId')
-    console.log("getStorageSync, exerciseId =", exerciseId)
-    //call.require("/getExerciseVideoSrc", exerciseId, this.getExerciseVideoSrcSuccess, this.getExerciseVideoSrcFail)
+    wx.setStorageSync('score', null)
+    this.setData({
+      not_hide: 1
+    })
+    //GET show_exercise_video_by_userId&exerciseId
+    //127.0.0.1:5000/show_exercise_video?user_id=1&exerciseId=1
+    var url = "/show_exercise_video?user_id=" + wx.getStorageSync('userId') + "&exerciseId=" + wx.getStorageSync('exerciseId')
+    console.log("getData:" + url)
+    call.getData(url, this.getExerciseVideoSrcSuccess, this.getExerciseVideoSrcFail)
     //创造CameraContext，申请摄像权限
     this.ctx = wx.createCameraContext()
-    console.log("createCameraContext, this.ctx =", this.ctx)
+    //console.log("createCameraContext, this.ctx =", this.ctx)
     //申请录音权限
     wx.startRecord({})
     wx.stopRecord({})
   },
   getExerciseVideoSrcSuccess(res){
-    console.log("call getExerciseVideoSrc Success")
-    that.setData({
-      exercise_video_src: ""
-    })
+    var that = this
+    //console.log(res)
+    if(res.code == 200){
+      that.setData({
+        exercise_video_src: app.globalData.host + res.data[0].video
+      })
+      console.log("getExerciseVideoSrcSuccess, src =", that.data.exercise_video_src)
+    } else {
+      taht.getExerciseVideoSrcFail()
+    }
   },
-  getExerciseVideoSrcFail(res){
-    console.log("call getExerciseVideoSrc Fail")
+  getExerciseVideoSrcFail(){
+    wx.showToast({
+      title: "加载失败了OAO", 
+      icon: 'error',
+      duration: 2000
+    })
   },
 
   //按钮：进入录制评分界面
@@ -124,16 +143,32 @@ Page({
   //上传录像
   UploadRecord: function(){
     var userId = wx.getStorageSync('userId')
+    var exerciseId = wx.getStorageSync('exerciseId')
     var videoSrc = wx.getStorageSync('videoSrc')
-    console.log("getStorageSync, userId =", userId, "videoSrc =", videoSrc)
+    console.log("UploadRecord, userId =", userId, "exerciseId =", exerciseId , "videoSrc =", videoSrc)
+    wx.showLoading({
+      title: '评分中...',
+      mask: true,
+    })
     wx.uploadFile({
       filePath: videoSrc,
-      name: userId,
-      formData : userId, 
-      url: 'url',
-      header: '',
-      success:()=>{
-        console.log("upLoadFile success")
+      name: "user_video",
+      // header: {
+      //   "content-type": "application/json;charset=UTF-8"
+      // },
+      formData : {
+        user_id: JSON.stringify(userId),
+        exerciseId: JSON.stringify(exerciseId)
+      }, 
+      url: app.globalData.host + '/upload_user_video',
+      success:(res)=>{
+        console.log("upLoadFile success", res)
+        if(res.statusCode == 200){
+          let score = JSON.parse(res.data).data.score
+          wx.setStorageSync('score', score)
+        } else {
+          console.log("upLoadFile error:", res.errMsg)
+        }
       },
       fail:()=>{
         console.log("upLoadFile fail")
@@ -169,6 +204,7 @@ Page({
     this.setData({
       if_record: 0,
       record_end: 0,
+      not_hide: 0
     });
   },
 
