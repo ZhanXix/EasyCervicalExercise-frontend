@@ -12,11 +12,11 @@ const code_h = 290 / rate;       //柱状图的高
 Page({
   // * 页面的初始数据
   data: {
-    total_times: 0,
-    total_duration: 0,
-    total_day:0,
-    continuous_day:0,
-    day_time:[0,0,0,0,0,0,0],
+    total_times: 34,
+    total_duration: 26,
+    total_day:9,
+    continuous_day:3,
+    day_time:[2,1,4,0,6,2,3],
     from_day:'',
     to_day:'',
     categories:[],

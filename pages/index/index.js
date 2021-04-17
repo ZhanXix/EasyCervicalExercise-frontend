@@ -13,8 +13,8 @@ Page({
       hasUserInfo: false,
     },
     canIUseGetUserProfile: false,
-    logNum: 0,
-    userRank: "9999+"
+    logNum: 34,
+    userRank: "28"
   },
 
   onLoad() {
@@ -38,10 +38,10 @@ Page({
     var that = this
     if(res.rank){
       console.log("ShowMineSuccess, rank =", res.rank, ",total_times =" , res.total_times)
-      that.setData({
-        logNum: res.total_times,
-        userRank: res.userRank
-      })
+      // that.setData({
+      //   logNum: res.total_times,
+      //   userRank: res.userRank
+      // })
     }
   },
   ShowMineFail(res){},
