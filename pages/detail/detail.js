@@ -5,9 +5,8 @@ const app = getApp()
 Page({
   // * 页面的初始数据
   data: {
-    exercise_video_src: ''
+    exercise_video_src: '',
     //"https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4"
-    ,
     if_record: 0,
     not_hide: 1,
     record_end: 0,
