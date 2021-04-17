@@ -45,13 +45,14 @@ Page({
     var from_day = ''
     var to_day = ''
     var categories = []
-    var week_arry = ['周一','周二','周三','周四','周五','周六','周日']
+    var week_arry = ['周日','周一','周二','周三','周四','周五','周六']
     var date = new Date()
     var week_day = date.getDay()
+    console.log(week_day)
     var month = date.getMonth() + 1
     to_day =  month + '/' + date.getDate()
     for(let i = 6; i >= 0; i--){
-      categories[i] = week_arry[week_day - 1]
+      categories[i] = week_arry[week_day]
       week_day--
       if(week_day < 1){
         week_day += 7
@@ -100,32 +101,31 @@ Page({
   charts:function(){
     let _this=this
     return new Promise(function () {
+
     new Charts({
       canvasId: 'columnCanvas',
       dataPointShape: false,
       type: 'column',
       legend: false,
       dataLabel: false,  //是否在图表中显示数据内容值
-      categories:_this.data.categories,
-      series: [{
-        name: '打卡记录',
-        data: _this.data.day_time,
-        color: "rgba(0, 0, 0, 1)"
-      }
-      ],
+      categories: _this.data.categories,
       xAxis: {
         disableGrid: true,
         type: 'calibration'
       },
+      series: [{
+        name: '成交量',
+        data: _this.data.day_time,
+        color: "rgba(0, 0, 0, 1)"
+      }
+      ],
       yAxis: {
-        disableGrid: true,
-        type: 'calibration',
+        disableGrid: false,
         gridColor: "#E7E7E7",
-        fontColor: "#ffffff",
+        fontColor: "#E7E7E7",
         min: 0,
         max: _this.data.max,
         disabled: true,
-        fontColor: "#e7e7e7"
       },
       dataItem: {
         color: "#e7e7e7"
@@ -135,10 +135,50 @@ Page({
       extra: {
         column: {
           width: 18,
-          legendTextColor: "#313131"
         },
       }
     })
     })
   }
+  // charts:function(){
+  //   let _this=this
+  //   new Charts({
+  //     canvasId: 'columnCanvas',
+  //     dataPointShape: false,
+  //     type: 'column',
+  //     legend: false,
+  //     dataLabel: false,  //是否在图表中显示数据内容值
+  //     categories:_this.data.categories,
+  //     series: [{
+  //       name: '打卡记录',
+  //       data: _this.data.day_time,
+  //       color: "rgba(0, 0, 0, 1)"
+  //     }],
+  //     xAxis: {
+  //       disableGrid: true,
+  //       type: 'calibration'
+  //     },
+  //     yAxis: {
+  //       disableGrid: true,
+  //       type: 'calibration',
+  //       gridColor: "#E7E7E7",
+  //       fontColor: "#ffffff",
+  //       min: 0,
+  //       max: _this.data.max,
+  //       disabled: true,
+  //       fontColor: "#e7e7e7"
+  //     },
+  //     dataItem: {
+  //       color: "#e7e7e7"
+  //     },
+  //     width: code_w,
+  //     height: code_h,
+  //     extra: {
+  //       column: {
+  //         width: 18,
+  //         legendTextColor: "#313131"
+  //       },
+  //     }
+  //   })
+  //  }
 })

@@ -1,6 +1,9 @@
 <!--pages/score/score.wxml-->
 <view class="user_video">
-  <video src="{{userVideoSrc}}" object-fit="contain" autoplay="{{true}}" muted="{{true}}" loop="{{true}}"></video>
+  <!-- <video src="{{userVideoSrc}}" object-fit="contain" autoplay="{{true}}" muted="{{true}}" loop="{{true}}"></video> -->
+  <swiper autoplay="true" indicator-dots="true" circular="true" indicator-color="#fff" indicator-active-color="#FFD200">
+
+  </swiper>
 </view>
 
 <view class="score_container">

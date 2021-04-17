@@ -7,6 +7,7 @@ Page({
     userVideoSrc: '',
     //"https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4",
     score: '',
+    userImage: []
   },
 
   //* 生命周期函数--监听页面加载
@@ -33,6 +34,11 @@ Page({
         console.log("get score =", score)
       }
     }, 1000)
+    // if(that.data.score == "error"){
+    //   wx.showToast({
+    //     title: '评分出错了QAQ',
+    //   })
+    //}
   },
 
   DoAgain: function() {

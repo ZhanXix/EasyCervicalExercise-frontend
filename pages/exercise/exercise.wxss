@@ -15,7 +15,6 @@
   width: 100%;
   border-radius: 9rpx;  
   z-index: -1; /*让图片置于最底层*/
-  /* box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(0, 0, 0, 0.4); */
 }
 .exercise_page .exercise_item .exercise_name{
   position: absolute;

@@ -11,10 +11,12 @@ App({
     // },
     // exerciseId: 0,
     // videoSrc: null, //视频暂存
-    host: 'http://1.116.103.4:5000/' //服务器地址
+    //host: 'http://1.116.103.4:5000/' //远程服务器地址
+    host: 'http://192.168.43.74:5000/' //局域网调试地址
   },
 
   onLaunch() {
+    wx.setStorageSync('userId', null)
     var that=this
     // 登录
     wx.login({

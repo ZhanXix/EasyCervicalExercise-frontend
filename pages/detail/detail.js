@@ -122,10 +122,10 @@ Page({
             showCancel: false,//是否显示取消按钮
             confirmText:"确定",//默认是“确定”
           })
-          this.setData({
+          that.setData({
             if_record: 0,
           })
-          this.ctx.stopRecord()
+          that.ctx.stopRecord()
         },
         success: (res) => {
           wx.setStorageSync('videoSrc', res.tempVideoPath)
@@ -155,6 +155,7 @@ Page({
       // header: {
       //   "content-type": "application/json;charset=UTF-8"
       // },
+      timeout: 600000,
       formData : {
         user_id: JSON.stringify(userId),
         exerciseId: JSON.stringify(exerciseId)
@@ -165,12 +166,11 @@ Page({
         if(res.statusCode == 200){
           let score = JSON.parse(res.data).data.score
           wx.setStorageSync('score', score)
-        } else {
-          console.log("upLoadFile error:", res.errMsg)
-        }
+        } 
       },
       fail:()=>{
         console.log("upLoadFile fail")
+        //wx.setStorageSync('score', "error")
       },
     })
   },
