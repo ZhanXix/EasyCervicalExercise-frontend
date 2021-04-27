@@ -1,10 +1,12 @@
 <!--pages/score/score.wxml-->
-<view class="user_video">
+<!-- <view class="user_video"> -->
   <!-- <video src="{{userVideoSrc}}" object-fit="contain" autoplay="{{true}}" muted="{{true}}" loop="{{true}}"></video> -->
-  <swiper autoplay="true" indicator-dots="true" circular="true" indicator-color="#fff" indicator-active-color="#FFD200">
-
-  </swiper>
-</view>
+<!-- </view> -->
+<swiper autoplay="true" indicator-dots="true" circular="true" indicator-color="#fff" indicator-active-color="#FFD200">
+    <swiper-item wx:for="{{photoList}}" wx:key="id">
+      <image src="{{item}}" mode="widthFix" class="user_photo"></image>
+    </swiper-item>
+</swiper>
 
 <view class="score_container">
   <view class="share" hover-class="button_hover">

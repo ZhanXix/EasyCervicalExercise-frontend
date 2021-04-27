@@ -15,6 +15,7 @@ Page({
 
   // * 生命周期函数--监听页面加载
   onLoad: function (options) {
+    wx.setStorageSync('photoList', null)
     wx.setStorageSync('score', null)
     this.setData({
       not_hide: 1
@@ -102,6 +103,7 @@ Page({
     this.setData({
       if_record: 0,
       record_end: 0,
+      not_hide: 1,
     })
     this.ctx.stopRecord()
     console.log("ExitRecord")
@@ -124,6 +126,7 @@ Page({
           })
           that.setData({
             if_record: 0,
+            not_hide: 1,
           })
           that.ctx.stopRecord()
         },
@@ -165,7 +168,9 @@ Page({
         console.log("upLoadFile success", res)
         if(res.statusCode == 200){
           let score = JSON.parse(res.data).data.score
+          let photoList = JSON.parse(res.data).data.photo_list
           wx.setStorageSync('score', score)
+          wx.setStorageSync('photoList', photoList)
         } 
       },
       fail:()=>{
@@ -205,6 +210,16 @@ Page({
       record_end: 0,
       not_hide: 0
     });
+  },
+  // * 生命周期函数--监听页面显示
+  onShow: function () {
+    this.setData({
+      if_record: 0,
+      record_end: 0,
+      not_hide: 1
+    });
+    //创造CameraContext，申请摄像权限
+    this.ctx = wx.createCameraContext()
   },
 
   //分享

@@ -1,5 +1,6 @@
 // pages/score/score.js
 var call = require("../../utils/request.js")
+const app = getApp()
 
 Page({
   // * 页面的初始数据
@@ -7,7 +8,7 @@ Page({
     userVideoSrc: '',
     //"https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b1ebbd3c-ca49-405b-957b-effe60782276/69d7fa0e-663c-4607-91ad-2f585d5aa785.mp4",
     score: '',
-    userImage: []
+    photoList: []
   },
 
   //* 生命周期函数--监听页面加载
@@ -19,26 +20,27 @@ Page({
     var userId = wx.getStorageSync('userId')
     var userVideoSrc = wx.getStorageSync('videoSrc')
     var score = wx.getStorageSync('score')
+    var photoList = wx.getStorageSync('photoList')
     console.log("getStorageSync, userId =", userId, "userVideoSrc =", userVideoSrc)
     var a = setInterval( function () { 
       //循环执行代码 
       score = wx.getStorageSync('score')
+      photoList = wx.getStorageSync('photoList')
       console.log("wait to get score...")
       if (score){
         clearInterval(a) 
         wx.hideLoading()
+        for(var i=0; i<photoList.length; i++){
+          photoList[i] = app.globalData.host + photoList[i]
+        }
         that.setData({
           userVideoSrc: userVideoSrc,
-          score: score
+          score: score,
+          photoList: photoList
         })
         console.log("get score =", score)
       }
     }, 1000)
-    // if(that.data.score == "error"){
-    //   wx.showToast({
-    //     title: '评分出错了QAQ',
-    //   })
-    //}
   },
 
   DoAgain: function() {

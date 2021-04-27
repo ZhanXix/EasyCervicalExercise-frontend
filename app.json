@@ -3,12 +3,12 @@
     "pages/exercise/exercise",
     "pages/index/index",
     "pages/detail/detail",
-    "pages/score/score",
     "pages/userlog/userlog",
     "pages/rank/rank",
     "pages/collect/collect",
     "pages/about/about",
-    "pages/search/search"  
+    "pages/search/search",
+    "pages/score/score"
   ],
   "window":{
     "backgroundTextStyle":"light",
